@@ -12,3 +12,7 @@ ADD atlas-prefetch.sh /usr/bin/atlas-prefetch
 RUN chmod +x /usr/bin/atlas-prefetch
 
 ENV PATH /opt/atlas-sdk/bin:$PATH
+
+RUN atlas-prefetch --product jira
+
+CMD atlas-run-standalone --product jira --http-port 2990 --server 0.0.0.0 --jvmargs -Xmx4096M -DskipAllPrompts=true

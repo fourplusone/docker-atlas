@@ -15,4 +15,6 @@ ENV PATH /opt/atlas-sdk/bin:$PATH
 
 RUN atlas-prefetch --product jira
 
-CMD atlas-run-standalone --product jira --http-port 2990 --server 0.0.0.0 --jvmargs -Xmx4096M -DskipAllPrompts=true
+HEALTHCHECK CMD [ "/usr/bin/wget", "-T", "5", "--spider", "http://localhost:2990/jira"] 
+
+CMD atlas-run-standalone --product jira --http-port 2990 --server 0.0.0.0 -DskipAllPrompts=true

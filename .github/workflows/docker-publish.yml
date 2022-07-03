@@ -13,19 +13,7 @@ env:
   IMAGE_NAME: jira
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Run tests
-        run: |
-            docker build . --file jira.dockerfile
-
   push:
-    needs: test
-
     runs-on: ubuntu-latest
     
     permissions:

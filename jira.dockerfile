@@ -19,8 +19,10 @@ ENV PATH /opt/atlas-sdk/bin:$PATH
 WORKDIR /root
 ADD pom.xml .
 
-RUN atlas-prefetch
+RUN atlas-prefetch && rm -rf target
 
 HEALTHCHECK --start-period=5m CMD [ "/usr/bin/wget", "-T", "5", "--spider", "http://localhost:2990/jira"] 
 
-CMD atlas-run
+CMD MVN_CMD="$(atlas-version | sed -ne 's/^Maven home: \(.*\)$/\1\/bin\/mvn/p') --offline" \
+    ATLAS_MVN=/usr/bin/atlas-mvn-wrapper \
+    atlas-run
